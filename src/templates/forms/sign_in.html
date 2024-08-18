@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+
+{% block auth_form %}
+    <!--<div class="d-flex justify-content-center">
+        <form method="post" action="">
+            {% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Логин</label>
+            {{form.username}}
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-password">Пароль</label>
+            {{form.password}}
+          </div>
+          <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+        <a href="/auth_page/"> Зарегестрироваться</a>
+    </div> -->
+<div class="d-flex justify-content-center">
+<form method="post" action="">
+            {% csrf_token %}
+            {{form}}
+
+    <button type="submit" class="btn btn-primary">Войти</button>
+</form>
+
+</div>
+{% if error %}
+        <div style="color: red" class="d-flex justify-content-center">{{error}}</div>
+    {%endif%}
+{% endblock %}

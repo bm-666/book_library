@@ -1,0 +1,41 @@
+{% extends 'index.html'%}
+
+{% block books %}
+
+    {% for book in books%}
+        {% if book %}
+        <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+            <div class="card-header h6" >{{book.name}}</div>
+            <br>
+            <div class="card-body">
+            {{book.genre}}
+            <br>
+            {% if user.is_authenticated %}
+            {% if book.status == "available" %}
+                <p style="color: green" class="h5">Доступен</p>
+            {%else%}
+                <p style="color: red" class="h5">Не доступен</p>
+            {% endif %}
+                <br>
+                {% if book.status == "available" %}
+                <form action="/reader/get_book" method="post"  >
+                    {% csrf_token %}
+                    <button class="btn btn-primary" name="btn" value={{book.id}}> Взять книгу </button>
+                </form>
+                {% else%}
+                <form action="/reader/return_book" method="post"  >
+                    {% csrf_token %}
+                    <button class="btn btn-primary" name="btn" value={{book.id}}> Вeрнуть книгу </button>
+                </form>
+                    {% endif %}
+
+                </form>
+
+                {% endif%}
+            </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

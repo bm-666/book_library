@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{%  block user_books%}
+    {% for book in user_books %}
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+
+        <div class="card-header">
+            <div class="card-header h6" >Ниаменование: {{book.book}}</div>
+            <br>
+            <div class="card-body">
+            <p>Дата взял: {{book.date_took|date:"d.m.Y"}}</p>
+            <br>
+             <p>Дней на руках: {{book.days_user_book}} </p>
+    </div>
+        </div> </div>
+    {% endfor %}
+
+{% endblock %}
+<!--Реализолвать фио-->

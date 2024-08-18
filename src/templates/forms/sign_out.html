@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block sign_out%}
+    <div class="d-flex justify-content-center">
+        <form action="" method="post">
+        <div class="form-group">
+                {% csrf_token %}
+                {{form}}
+
+            <button type="submit" class="btn btn-primary" >регистрация</button>
+        </div>
+        </form>
+    </div>
+{% endblock %}

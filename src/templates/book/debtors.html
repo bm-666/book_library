@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+<!-- Оображение должников -->
+{% block debtors %}
+<div class="h3 align-self-center"> Должники </div>
+    {% for debtor in debtors %}
+        <div class="card bg-light mb-3" style="max-width: 18rem;">
+
+        <div class="card-header">
+            <div class="card-header h6" > Наименование: {{debtor.book}}</div>
+            <br>
+            <div class="card-body">
+                <p> username: {{debtor.reader}}</p>
+            <br>
+                <p> Имя: {{debtor.reader.first_name}}</p>
+                <br>
+                <p> Фамилия: {{debtor.reader.last_name}}</p>
+                <br>
+                <p> Адрес: {{debtor.reader.address}}</p>
+                <br>
+            <p>Дата взял: {{debtor.date_took|date:"d.m.Y"}}</p>
+            <br>
+             <p>Дней на руках: {{debtor.days_user_book}} </p>
+    </div>
+        </div> </div>
+    {% endfor %}
+
+{% endblock %}
