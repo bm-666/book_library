@@ -48,7 +48,7 @@ def get_user_books(request: HttpRequest, id: int) -> list[ReaderBook] | HttpResp
 
     param: id reader id
     """
-    user_books = get_list_or_404(ReaderBook, reader_id=id)
+    user_books = get_list_or_404(ReaderBook, reader_id=id, date_return=None)
 
     return render(request, 'book/user_books.html', context={'user_books': user_books})
 

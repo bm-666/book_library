@@ -40,7 +40,7 @@ def show_list_books(request: Request) -> Response:
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
-def get_book(request: Request, book: int) -> Response:
+def get_book(request: Request, id: int) -> Response:
     """
     получение книги
     :param book id книги
@@ -48,15 +48,15 @@ def get_book(request: Request, book: int) -> Response:
     """
     try:
 
-        if not isinstance(book, int):
-            return Response(status=status.HTTP_400_BAD_REQUEST, data={'book':book, 'status': ResponseStatus.INCORRECT_PARAMETER})
+        if not isinstance(id, int):
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={'book':id, 'status': ResponseStatus.INCORRECT_PARAMETER})
 
         if request.user.role == Role.READER:
-            data = func_get_book(book_id=book, reader_id=request.user.id)
+            data = func_get_book(book_id=id, reader_id=request.user.id)
             return Response(status=status.HTTP_200_OK, data=data)
 
         else:
-            return Response(status=status.HTTP_403_FORBIDDEN, data={'book': book, 'status': ResponseStatus.FORBIDDEN})
+            return Response(status=status.HTTP_403_FORBIDDEN, data={'book': id, 'status': ResponseStatus.FORBIDDEN})
 
     except Exception as e:
         logger.exception(e)
@@ -66,7 +66,7 @@ def get_book(request: Request, book: int) -> Response:
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
-def return_book(request: Request, book:int) -> Response:
+def return_book(request: Request, id :int) -> Response:
     """метод возврат книги
 
     :param book id возвращаемой  книги
@@ -74,20 +74,20 @@ def return_book(request: Request, book:int) -> Response:
     """
 
     try:
-        if not isinstance(book, int):
+        if not isinstance(id, int):
             return Response(
                 status=status.HTTP_400_BAD_REQUEST,
-                data=BookResponseStruct(id=book, status = ResponseStatus.INCORRECT_PARAMETER).__dict__
+                data=BookResponseStruct(id=id, status = ResponseStatus.INCORRECT_PARAMETER).__dict__
                 )
 
         if request.user.role == Role.READER:
-            data = func_return_book(book_id=book, reader_id=request.user.id)
+            data = func_return_book(book_id=id, reader_id=request.user.id)
             return Response(status=status.HTTP_200_OK, data=data.__dict__)
 
         else:
             return Response(
                 status=status.HTTP_403_FORBIDDEN,
-                data=BookResponseStruct(id=book, status=ResponseStatus.FORBIDDEN).__dict__
+                data=BookResponseStruct(id=id, status=ResponseStatus.FORBIDDEN).__dict__
             )
     except Exception as e:
         logger.exception(e)

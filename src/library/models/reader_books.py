@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, date
 
 from django.db import models
 from django.utils import timezone
@@ -13,6 +13,7 @@ class ReaderBook(models.Model):
     date_took = models.DateTimeField(default=timezone.now)
     date_return = models.DateTimeField(null=True, blank=True)
     history = HistoricalRecords()
+
     class Meta:
         db_table = 'reader_book'
         verbose_name = 'Должник'
