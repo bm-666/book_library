@@ -1,0 +1,12 @@
+services:
+  be:
+    container_name: be
+    env_file:
+      - src/.env.example
+    build:
+      context: .
+    command:
+      bash -c "gunicorn --timeout 600 --workers=5 --threads=5 --bind 0.0.0.0:8001 config.wsgi"
+    ports:
+      - '8001:8001'
+
